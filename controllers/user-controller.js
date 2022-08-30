@@ -81,7 +81,22 @@ const { User } = require('../models');
   })
   .catch(err => res.json(err));
   },
-  };
+  deleteFriend({ params }, res) {
+    User.findOneAndUpdate(
+      { _id: params.userId },
+      { $pull: { friends: params.friendId  } },
+  { new: true, runValidators: true }
+  )
+.then(dbUserData => {
+  if (!dbUserData) {
+    res.status(404).json({ message: "No User with that ID"});
+    return;
+  }
+  res.json(dbUserData)
+})
+.catch(err => res.json(err));
+},
+};
 
 
 module.exports = UserController;
