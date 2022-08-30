@@ -64,7 +64,24 @@ const { User } = require('../models');
         res.json(dbUserData)
       })
       .catch(err => res.status(400).json(err));
+    },
+     // add friend to a user
+     addFriend({ params }, res) {
+      User.findOneAndUpdate(
+    { _id: params.userId},
+    { _id: params.userId},
+    { $push: { friends: userId } },
+    { new: true, runValidators: true }
+    )
+  .then(dbUserData => {
+    if (!dbUserData) {
+      res.status(404).json({ message: "No User with that ID"});
+      return;
     }
+    res.json(dbUserData)
+  })
+  .catch(err => res.json(err));
+  },
   };
 
 
