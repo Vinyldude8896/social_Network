@@ -4,8 +4,8 @@ const {
     getAllUser,
     getUserById,
     createUser,
-    // updateUser,
-    // deleteUser
+    updateUser,
+    deleteUser
   } = require('../../controllers/user-controller');
 
 // /api/pizzas
@@ -18,7 +18,7 @@ router
 router
   .route('/:id')
   .get(getUserById)
-//   .put(updateUser)
-//   .delete(deleteUser);
+  .put(updateUser)
+  .delete(deleteUser);
 
 module.exports = router;
