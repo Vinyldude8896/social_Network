@@ -34,7 +34,7 @@ const ReactionSchema = new Schema (
 
 
 // Thought model Schema
-const ThoughSchema = new Schema (
+const ThoughtSchema = new Schema (
 {
     thoughtText: {
         type: String,
@@ -61,11 +61,11 @@ const ThoughSchema = new Schema (
 }
 );
 
-// ReactionSchema.virtual('reactionCount').get(function() {
-//     return this.replies.length;
-//   });
+ThoughtSchema.virtual('reactionCount').get(function() {
+    return this.reactions.length;
+  });
 
-  const Thought = model('Thought', ThoughSchema);
+  const Thought = model('Thought', ThoughtSchema);
 
 //   const Reaction = model('Reaction', ReactionSchema);
 

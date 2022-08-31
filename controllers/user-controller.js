@@ -82,6 +82,28 @@ const { User } = require('../models');
       })
       .catch(err => res.status(400).json(err));
     },
+
+    // Temporary not working pull all thoughts on delete
+    // deleteUser({ params }, res) {
+    // User.findOneAndUpdate (
+    //   { _id: params.id},
+    //   { $pullAll: {thoughts: params.username }},
+    //   { new: true }
+    //   )
+    //   .then(dbThoughtdata => {
+    //     return User.findOneAndDelete({ _id: params.id})
+    //       .then(dbThoughtdata => {
+    //         if (!dbThoughtdata) {
+    //           res.status(404).json({ message: 'No User wit that ID!'});
+    //           return;
+    //         }
+    //         res.json(dbThoughtdata)
+    //       })
+    //       .catch(err => res.status(400).json(err));
+    //     })
+    //     },
+
+
      // add friend to a user
      addFriend({ params }, res) {
       User.findOneAndUpdate(
