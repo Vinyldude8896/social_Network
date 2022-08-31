@@ -10,6 +10,10 @@ const { User } = require('../models');
             path: 'thoughts',
             select: '-__v'
         })
+        .populate({
+          path: 'friends',
+          select: '-__v'
+      })
         .select('-__v')
         .sort({ _id: -1})
         .then(dbUserData => res.json(dbUserData))
@@ -22,16 +26,29 @@ const { User } = require('../models');
         User.findOne({ _id: params.id})
         .populate({
             path: 'thoughts',
-            path: 'friends',
             select: '-__v'
         })
         .select('-__v')
-        .then(dbPizzaData => {
-          if (!dbPizzaData) {
+        .sort({_id: -1})
+        .then(dbUserData => {
+          if (!dbUserData) {
             res.status(404).json({ message: 'No pizza found with this id!' });
             return;
           }
-          res.json(dbPizzaData);
+          res.json(dbUserData);
+        })
+        .populate({
+          path: 'friends',
+          select: '-__v'
+      })
+        .select('-__v')
+        .sort({_id: -1})
+        .then(dbUserData => {
+          if (!dbUserData) {
+            res.status(404).json({ message: 'No pizza found with this id!' });
+            return;
+          }
+          res.json(dbUserData);
         })
         .catch(err => {
           console.log(err);
@@ -93,6 +110,21 @@ const { User } = require('../models');
     return;
   }
   res.json(dbUserData)
+})
+.catch(err => res.json(err));
+},
+addThought({ params }, res) {
+  User.findOneAndUpdate(
+    { _id: params.Id },
+    { $addToSet: { thoughts: params.Id  } },
+{ new: true, runValidators: true }
+)
+.then(dbUserData => {
+if (!dbUserData) {
+  res.status(404).json({ message: "No User with that ID"});
+  return;
+}
+res.json(dbUserData)
 })
 .catch(err => res.json(err));
 },
