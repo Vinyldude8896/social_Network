@@ -61,10 +61,13 @@ const ThoughSchema = new Schema (
 }
 );
 
-ReactionSchema.virtual('reactionCount').get(function() {
-    return this.replies.length;
-  });
+// ReactionSchema.virtual('reactionCount').get(function() {
+//     return this.replies.length;
+//   });
 
   const Thought = model('Thought', ThoughSchema);
 
+//   const Reaction = model('Reaction', ReactionSchema);
+
   module.exports = Thought;
+//   module.exports = Reaction;
