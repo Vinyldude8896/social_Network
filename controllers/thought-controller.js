@@ -87,12 +87,18 @@ deleteThought({ params}, res) {
     deleteReaction({ params }, res) {
         Thought.findOneAndUpdate(
             { _id: params.thoughtId },
-            { $pull: { reactions: { reactionId: params.reactionId } } },
+            { $pull: {reactions: {reactionId: params.reactionId}}},
         { new: true, runValidators: true }
         )
-        .then(dbPizzaData => res.json(dbPizzaData))
-        .catch(err => res.json(err));
-      }
+        .then(dbThoughtData => {
+            if (!dbThoughtData) {
+              res.status(404).json({ message: "No Thought with that ID"});
+              return;
+            }
+            res.json(dbThoughtData)
+          })
+          .catch(err => res.json(err));
+          },
 };
 
 

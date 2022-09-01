@@ -1,4 +1,5 @@
 const { User } = require('../models');
+const {Thought} = require('../models');
 
   // the functions will go in here as methods
   const UserController = {
@@ -6,14 +7,14 @@ const { User } = require('../models');
     // get all Users
     getAllUser(req, res) {
        User.find({})
-        .populate({
-            path: 'thoughts',
-            select: '-__v'
-        })
-        .populate({
-          path: 'friends',
-          select: '-__v'
-      })
+      //   .populate({
+      //       path: 'thoughts',
+      //       select: '-__v'
+      //   })
+      //   .populate({
+      //     path: 'friends',
+      //     select: '-__v'
+      // })
         .select('-__v')
         .sort({ _id: -1})
         .then(dbUserData => res.json(dbUserData))
@@ -28,15 +29,6 @@ const { User } = require('../models');
             path: 'thoughts',
             select: '-__v'
         })
-        .select('-__v')
-        .sort({_id: -1})
-        .then(dbUserData => {
-          if (!dbUserData) {
-            res.status(404).json({ message: 'No pizza found with this id!' });
-            return;
-          }
-          res.json(dbUserData);
-        })
         .populate({
           path: 'friends',
           select: '-__v'
@@ -45,7 +37,7 @@ const { User } = require('../models');
         .sort({_id: -1})
         .then(dbUserData => {
           if (!dbUserData) {
-            res.status(404).json({ message: 'No pizza found with this id!' });
+            res.status(404).json({ message: 'No user found with this id!' });
             return;
           }
           res.json(dbUserData);
@@ -71,6 +63,7 @@ const { User } = require('../models');
       })
       .catch(err => res.status(400).json(err));
     },
+    // working delete route
     deleteUser({ params }, res) {
       User.findOneAndDelete({ _id: params.id})
       .then(dbUserData => {
@@ -85,24 +78,26 @@ const { User } = require('../models');
 
     // Temporary not working pull all thoughts on delete
     // deleteUser({ params }, res) {
-    // User.findOneAndUpdate (
-    //   { _id: params.id},
-    //   { $pullAll: {thoughts: params.username }},
-    //   { new: true }
+    //   User.findOne(
+    //     { _id: params.id },
     //   )
-    //   .then(dbThoughtdata => {
-    //     return User.findOneAndDelete({ _id: params.id})
-    //       .then(dbThoughtdata => {
+    //   .then(dbUserData => {
+    //     var thoughtsArray = ;
+
+    //     thoughtsArray.forEach(dbUserData.thoughtId) => {
+          
+    //     });
+    //   }
+    //     .then(dbUserData => {
     //         if (!dbThoughtdata) {
-    //           res.status(404).json({ message: 'No User wit that ID!'});
+    //           res.status(404).json({ message: 'No User with that ID!'});
     //           return;
     //         }
     //         res.json(dbThoughtdata)
     //       })
     //       .catch(err => res.status(400).json(err));
-    //     })
-    //     },
-
+    //   },
+    // }
 
      // add friend to a user
      addFriend({ params }, res) {
