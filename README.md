@@ -47,3 +47,7 @@ localhost:3001/api/users/:id - will get a user by ID
 
 <img src="./public/assets/images/social_network_1.jpg" alt="Getting started">
 <img src="./public/assets/images/social_network_2.jpg" alt="Getting started">
+
+### Video Walkthrough of how the testing and routes work using Insomnia
+
+https://drive.google.com/file/d/1q2oEGk4RohusoZ0twkgaqx4lr5Fsd3-h/view
