@@ -7,14 +7,6 @@ const {Thought} = require('../models');
     // get all Users
     getAllUser(req, res) {
        User.find({})
-      //   .populate({
-      //       path: 'thoughts',
-      //       select: '-__v'
-      //   })
-      //   .populate({
-      //     path: 'friends',
-      //     select: '-__v'
-      // })
         .select('-__v')
         .sort({ _id: -1})
         .then(dbUserData => res.json(dbUserData))
@@ -23,6 +15,7 @@ const {Thought} = require('../models');
             res.status(400).json(err);
         });
     },
+    // get User by id and populate the thoughts and freinds
     getUserById({ params}, res) {
         User.findOne({ _id: params.id})
         .populate({
@@ -47,11 +40,13 @@ const {Thought} = require('../models');
           res.status(400).json(err);
         });
     },
+    // create a new user here
     createUser({ body }, res) {
         User.create(body)
         .then(dbUserData => res.json(dbUserData))
         .catch(err => res.status(400).json(err));
     },
+    // update a user by ID here
     updateUser({ params, body }, res) {
       User.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
       .then(dbUserData => {
@@ -63,7 +58,7 @@ const {Thought} = require('../models');
       })
       .catch(err => res.status(400).json(err));
     },
-    // working delete route
+    // Deleteing a user here, but not removing the thoughts
     deleteUser({ params }, res) {
       User.findOneAndDelete({ _id: params.id})
       .then(dbUserData => {
@@ -76,7 +71,7 @@ const {Thought} = require('../models');
       .catch(err => res.status(400).json(err));
     },
 
-    // Temporary not working pull all thoughts on delete
+    // This is the delete user and their thoughts function still in progress
     // deleteUser({ params }, res) {
     //   User.findOne(
     //     { _id: params.id },
@@ -99,7 +94,7 @@ const {Thought} = require('../models');
     //   },
     // }
 
-     // add friend to a user
+     // add friend to a user by IDs
      addFriend({ params }, res) {
       User.findOneAndUpdate(
         { _id: params.userId },
@@ -115,6 +110,7 @@ const {Thought} = require('../models');
   })
   .catch(err => res.json(err));
   },
+  // delete a friend from a user by the ID
   deleteFriend({ params }, res) {
     User.findOneAndUpdate(
       { _id: params.userId },
@@ -130,6 +126,7 @@ const {Thought} = require('../models');
 })
 .catch(err => res.json(err));
 },
+// adding a thought here
 addThought({ params }, res) {
   User.findOneAndUpdate(
     { _id: params.Id },

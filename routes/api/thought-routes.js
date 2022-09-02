@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+//importing all the thought functions from the thought-controller
 const {
     getAllThoughts,
     getThoughtById,

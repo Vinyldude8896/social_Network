@@ -1,3 +1,5 @@
+// this will format the date for us to give us a better looking date stamp
+
 const addDateSuffix = date => {
     let dateStr = date.toString();
   

@@ -1,8 +1,9 @@
 const { Schema, model, Types } = require('mongoose');
+
+// importing date format until function
 const dateFormat = require('../utils/dateFormat');
 
 // Reaction Model Schema
-
 const ReactionSchema = new Schema (
 {
     reactionId: {
@@ -61,10 +62,12 @@ const ThoughtSchema = new Schema (
 }
 );
 
+// creating virtual to count the length of the reactions subdocument array
 ThoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
   });
 
+  // creating a model of the Thought Schema for export
   const Thought = model('Thought', ThoughtSchema);
 
   module.exports = Thought;

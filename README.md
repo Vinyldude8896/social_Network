@@ -40,3 +40,6 @@ N/A as of yet
     I can be contacted by phone as well, but prefer email contact first.
 
 ### Images of example readme.md
+
+<img src="./public/assets/images/social_network_1.jpg" alt="Getting started">
+<img src="./public/assets/images/social_network_2.jpg" alt="Getting started">

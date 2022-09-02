@@ -24,4 +24,5 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/social_ne
 // Use this to log mongo queries being executed!
 mongoose.set('debug', true);
 
+// listening for the PORT connection
 app.listen(PORT, () => console.log(`🌍 Connected on localhost:${PORT}`));

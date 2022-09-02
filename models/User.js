@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose');
-// const ThoughtSchema = require('./Thought');
-const validateEmail = require('../utils/emailFormat');
+// const validateEmail = require('../utils/emailFormat');
 
 // user model Schema
 const UserSchema = new Schema (
@@ -42,11 +41,12 @@ const UserSchema = new Schema (
 );
 
 
-
+// virtual to count the legnth of the friends subdocument array
 UserSchema.virtual('FriendsCount').get(function() {
     return this.friends.length;
   });
 
+  // creating a model of the user schema for export
 const User = model('User', UserSchema);
 
 module.exports = User;
