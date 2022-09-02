@@ -23,7 +23,7 @@
 
 ### Installation
 Please clone the github repo here : https://github.com/Vinyldude8896/social_Network
-make sure your Mongo service is running
+make sure your Mongo service is running and you have ran npmi i to install dependancies
 Then you can run the server using npm start at the command line
 Then you can test the routes using Insomnia.
 
@@ -33,7 +33,11 @@ Then you can test the routes using Insomnia.
 ### Contribution Guidelines
 N/A as of yet
 ### Testing
-
+To test this application, make sure you have cloned the repo and ran npm I at the command line to install dependancies.
+Then use Insomnia or an equivalent middleware application to test the routes for each method:
+for insantance:
+localhost:3001/api/users/ - will get all users
+localhost:3001/api/users/:id - will get a user by ID
 ### Questions
     email address : kevinnivek@me.com
     - additional instructions 
