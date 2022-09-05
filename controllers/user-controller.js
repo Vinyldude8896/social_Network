@@ -61,48 +61,38 @@ const { deleteThought } = require('./thought-controller');
       .catch(err => res.status(400).json(err));
     },
     // Deleteing a user here, but not removing the thoughts
-    // deleteUser({ params }, res) {
-    //   User.findOneAndDelete({ _id: params.id})
-    //   .then(dbUserData => {
-    //     if (!dbUserData) {
-    //       res.status(404).json({ message: 'No User wit that ID!'});
-    //       return;
-    //     }
-    //     res.json(dbUserData)
-    //   })
-    //   .catch(err => res.status(400).json(err));
-    // },
+    deleteUser({ params }, res) {
+      User.findOneAndDelete({ _id: params.id})
+      .then(dbUserData => {
+        if (!dbUserData) {
+          res.status(404).json({ message: 'No User wit that ID!'});
+          return;
+        }
+        res.json(dbUserData)
+      })
+      .catch(err => res.status(400).json(err));
+    },
 
     // This is the delete user and their thoughts function still in progress
-    deleteUser({ params }, res) {
-      let thoughtsArray = {};
-      User.findOne(
-        { _id: params.id},
-      )
-        .then (dbUserData => {
-          thoughtsArray = dbUserData.thoughts,
-          console.log("dbuserdata.thoughts is " + dbUserData.thoughts)
-          console.log(thoughtsArray)
-          thoughtsArray.forEach(element => {
-          console.log("The Thought ID is " + element)
-          Thought.findOneAndDelete(element)
-        })
-        // console.log("the array of elements is " + idsToDelete);
-        // for (i=0; i<= idsToDelete.length; i++){
-        //   Thought.findOneAndDelete(idsToDelete[i])
-        //   console.log("The ID to delete in the last function is " + idsToDelete[i]
-        //   )
-        // }
-      })
-          .then(dbUserData => {
-            if (!dbUserData) {
-              res.status(404).json({ message: "No Message with that ID"});
-              return;
-            }
-            res.json(dbUserData)
-          })
-          .catch(err => res.json(err));
-        },
+    // deleteUser({ params }, res) {
+    //   User.findOneAndDelete(
+    //     { _id: params.id},
+    //   )
+    //     .then(dbUserData => {
+    //       Thought.deleteMany({
+    //         _id: dbUserData.thoughts
+    //       })
+          
+    //   })
+    //   .then(dbUserData => {
+    //         if (!dbUserData) {
+    //           res.status(404).json({ message: "No Message with that ID"});
+    //           return;
+    //         }
+    //         res.json(dbUserData)
+    //       })
+    //       .catch(err => res.json(err));
+    //     },
 
      // add friend to a user by IDs
      addFriend({ params }, res) {
