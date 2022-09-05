@@ -1,5 +1,7 @@
 const { User } = require('../models');
 const {Thought} = require('../models');
+const { deleteThought } = require('./thought-controller');
+
 
   // the functions will go in here as methods
   const UserController = {
@@ -59,40 +61,53 @@ const {Thought} = require('../models');
       .catch(err => res.status(400).json(err));
     },
     // Deleteing a user here, but not removing the thoughts
-    deleteUser({ params }, res) {
-      User.findOneAndDelete({ _id: params.id})
-      .then(dbUserData => {
-        if (!dbUserData) {
-          res.status(404).json({ message: 'No User wit that ID!'});
-          return;
-        }
-        res.json(dbUserData)
-      })
-      .catch(err => res.status(400).json(err));
-    },
+    // deleteUser({ params }, res) {
+    //   User.findOneAndDelete({ _id: params.id})
+    //   .then(dbUserData => {
+    //     if (!dbUserData) {
+    //       res.status(404).json({ message: 'No User wit that ID!'});
+    //       return;
+    //     }
+    //     res.json(dbUserData)
+    //   })
+    //   .catch(err => res.status(400).json(err));
+    // },
 
     // This is the delete user and their thoughts function still in progress
-    // deleteUser({ params }, res) {
-    //   User.findOne(
-    //     { _id: params.id },
-    //   )
-    //   .then(dbUserData => {
-    //     var thoughtsArray = ;
+    deleteUser({ params }, res) {
+      let thoughtsArray = [];
+      let idToDelete = "";
+      User.findOne(
+        { _id: params.id},
+      )
+        .then (dbUserData => {
+          thoughtsArray = dbUserData.thoughts,
+          console.log(thoughtsArray)
+          thoughtsArray.forEach(element => {
+          console.log("The Thought ID is " + element)
+          Thought.findOneAndDelete({ _id: element})
+        })
+      })
+          .then(dbUserData => {
+            if (!dbUserData) {
+              res.status(404).json({ message: "No Message with that ID"});
+              return;
+            }
+            res.json(dbUserData)
+          })
+          .catch(err => res.json(err));
+        },
+        // .then(dbUserData => {
+        //   if (!dbUserData) {
+        //     res.status(404).json({ message: "No Message with that ID"});
+        //     return;
+        //   }
+        //   res.json(dbUserData)
+        // })
+        // .catch(err => res.json(err));
 
-    //     thoughtsArray.forEach(dbUserData.thoughtId) => {
-          
-    //     });
-    //   }
-    //     .then(dbUserData => {
-    //         if (!dbThoughtdata) {
-    //           res.status(404).json({ message: 'No User with that ID!'});
-    //           return;
-    //         }
-    //         res.json(dbThoughtdata)
-    //       })
-    //       .catch(err => res.status(400).json(err));
-    //   },
-    // }
+
+
 
      // add friend to a user by IDs
      addFriend({ params }, res) {
