@@ -1,5 +1,7 @@
 const { User } = require('../models');
 const {Thought} = require('../models');
+const { deleteThought } = require('./thought-controller');
+
 
   // the functions will go in here as methods
   const UserController = {
@@ -73,26 +75,24 @@ const {Thought} = require('../models');
 
     // This is the delete user and their thoughts function still in progress
     // deleteUser({ params }, res) {
-    //   User.findOne(
-    //     { _id: params.id },
+    //   User.findOneAndDelete(
+    //     { _id: params.id},
     //   )
-    //   .then(dbUserData => {
-    //     var thoughtsArray = ;
-
-    //     thoughtsArray.forEach(dbUserData.thoughtId) => {
-          
-    //     });
-    //   }
     //     .then(dbUserData => {
-    //         if (!dbThoughtdata) {
-    //           res.status(404).json({ message: 'No User with that ID!'});
+    //       Thought.deleteMany({
+    //         _id: dbUserData.thoughts
+    //       })
+          
+    //   })
+    //   .then(dbUserData => {
+    //         if (!dbUserData) {
+    //           res.status(404).json({ message: "No Message with that ID"});
     //           return;
     //         }
-    //         res.json(dbThoughtdata)
+    //         res.json(dbUserData)
     //       })
-    //       .catch(err => res.status(400).json(err));
-    //   },
-    // }
+    //       .catch(err => res.json(err));
+    //     },
 
      // add friend to a user by IDs
      addFriend({ params }, res) {
